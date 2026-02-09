@@ -334,7 +334,7 @@ pytest tests/ --cov=core
 
 See `paper/main.md`:
 
-**"Hybrid Human-AI Orchestration: Design Patterns from a Production Voice AI System"**
+**"The Hybrid Orchestrator: A Framework for Coordinating Human-AI Teams"**
 
 ## License
 
@@ -344,7 +344,7 @@ Apache 2.0 - Use freely, but no warranty.
 
 ```bibtex
 @misc{sukhachev2026hybrid,
-  title={Hybrid Human-AI Orchestration: Design Patterns from a Production Voice AI System},
+  title={The Hybrid Orchestrator: A Framework for Coordinating Human-AI Teams},
   author={Sukhachev, Pavel},
   year={2026},
   howpublished={GitHub repository},

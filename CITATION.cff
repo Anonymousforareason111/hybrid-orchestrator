@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
-title: "Hybrid Human-AI Orchestration"
-abstract: "Design patterns for coordinating human workers and AI agents in enterprise workflows, with a working Python implementation."
+title: "The Hybrid Orchestrator"
+abstract: "A framework for coordinating human-AI teams across multiple communication channels, with pluggable domain adapters and a working Python implementation."
 authors:
   - family-names: "Sukhachev"
     given-names: "Pavel"
@@ -21,5 +21,5 @@ keywords:
   - enterprise-automation
   - design-patterns
   - orchestration
-  - financial-services
-  - insurance-technology
+  - hybrid-teams
+  - domain-adapters
