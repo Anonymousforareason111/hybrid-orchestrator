@@ -1,327 +1,181 @@
 # Research Paper Outline
 
 ## Title
-**"The CEO Agent: Proactive Blocker Resolution in Hybrid Human-AI Workflows"**
-
-Alternative titles:
-- "Beyond Coding Agents: A Hybrid Human-AI Orchestration Framework with Omnichannel Communication"
-- "From Autonomous Coding to Enterprise Orchestration: Multi-Agent Systems with Voice Integration"
+**"The Hybrid Orchestrator: A Framework for Coordinating Human-AI Teams"**
 
 ---
 
 ## Abstract (150-250 words)
 
-**Problem**: AI agents lose memory between sessions. Existing solutions like the Linear Coding Agent Harness address this for coding tasks, but real enterprises need hybrid human/AI teams with multi-channel communication.
+**Problem**: AI agents lose memory between sessions. Existing solutions address this for coding tasks, but real enterprises need hybrid human-AI teams with multi-channel communication and domain-specific workflows.
 
-**Contribution**: We present a general-purpose orchestration framework for hybrid human-AI teams. A central "CEO agent" monitors progress, detects blockers, and intervenes proactively via optimal communication channels (voice, SMS, email, Slack).
+**Contribution**: We present the Hybrid Orchestrator, a three-layer framework (orchestrator, workers, channels) for coordinating human-AI teams. Four design patterns: session state externalization, multi-channel communication, activity monitoring with triggers, and human escalation pathways. Pluggable domain adapters for industry customization.
 
-**Evaluation**: We demonstrate the framework through a production insurance application system where AI guides customers through forms via voice while human agents handle exceptions. Results show [X]% faster completion and [Y]% higher satisfaction vs. pure-human baseline.
-
-**Availability**: Core framework open-sourced at github.com/pavelsukhachev/hybrid-orchestrator
+**Availability**: Reference implementation at github.com/pavelsukhachev/hybrid-orchestrator (Apache 2.0). Evaluation benchmark at huggingface.co/datasets/pashas/insurance-ai-reliability-benchmark.
 
 ---
 
 ## 1. Introduction (2-3 pages)
 
-### 1.1 The Problem: Agent Memory Loss
-- AI agents operate within context windows
+### 1.1 The Context Window Problem
+- AI agents operate within fixed context windows
 - Long-running tasks exceed these limits
 - Session handoffs lose critical context
-- Example: Building a 50-feature app takes days, but agents "forget" between sessions
 
-### 1.2 Existing Solutions and Their Limits
-- **Linear Agent Harness** (Medin, 2025): Uses Linear issues as external memory
-  - Strength: Real-time observability, clean handoffs
-  - Limitation: Coding-only, agent-to-agent only
-- **LangGraph, AutoGen, CrewAI**: Multi-agent frameworks
-  - Limitation: No human-in-loop coordination, no voice
-- **VAPI, OpenAI Realtime**: Voice AI platforms
-  - Limitation: Single-agent, no orchestration
+### 1.2 Beyond Coding Agents
+- Linear Agent Harness: external memory for coding
+- Enterprises need: hybrid teams, multiple channels, domain adaptation
+- No existing framework addresses all three
 
-### 1.3 The Gap: Hybrid Teams + Multi-Channel + Domain Adapters
-- Real enterprises have hybrid teams (humans + AI)
-- Communication happens via multiple channels (not just task trackers)
-- Different domains need different workflows
-- **No existing framework addresses all three**
+### 1.3 Our Contribution
+1. Three-layer framework architecture
+2. Four documented design patterns with code
+3. Domain adapter pattern for industry customization
+4. Reference implementation (Apache 2.0)
 
-### 1.4 Our Contribution
-1. **CEO Orchestrator**: Central agent that monitors, detects blockers, intervenes
-2. **Omnichannel Communication**: Voice (VAPI), SMS, email, Slack, task trackers
-3. **Hybrid Team Coordination**: Unified protocol for humans and AI agents
-4. **Domain Adapters**: Pluggable modules for insurance, coding, coaching
-5. **Production Validation**: Case study with real users
+### 1.4 Paper Organization
 
 ---
 
-## 2. Background & Related Work (2-3 pages)
+## 2. Related Work (2-3 pages)
 
-### 2.1 Long-Running AI Agents
-- Anthropic's agent harness architecture [cite engineering blog]
-- Linear Agent Harness implementation [cite Cole Medin repo]
-- Context window limitations and workarounds
+### 2.1 Long-Running Agent Frameworks
+- Linear Agent Harness (Medin, 2025)
+- Anthropic's harness recommendations
 
 ### 2.2 Multi-Agent Frameworks
-- LangGraph: Graph-based agent orchestration
-- AutoGen: Microsoft's conversational agents
-- CrewAI: Role-based agent teams
-- **Gap**: All focus on AI-to-AI coordination, not human-AI hybrid
+- LangGraph, AutoGen, CrewAI
+- Gap: AI-to-AI focus, not human-AI hybrid
 
-### 2.3 Human-AI Collaboration Research
-- Studies showing hybrid teams outperform pure AI or pure human [cite]
-- Factors affecting hybrid team performance
-- The orchestration problem
+### 2.3 Voice AI Platforms
+- VAPI, OpenAI Realtime
+- Gap: Platforms provide tools, not orchestration
 
-### 2.4 Voice AI Platforms
-- VAPI: Enterprise voice AI infrastructure
-- OpenAI Realtime: WebSocket-based voice
-- Deepgram, ElevenLabs: ASR and TTS
-- **Gap**: Platforms provide tools, not orchestration
+### 2.4 Enterprise Workflow Tools
+- ServiceNow, Salesforce Flow
+- Similar patterns, different context (pre-LLM)
+
+### 2.5 What We Actually Contribute
+- Table: Pattern | Prior Art | Our Contribution
 
 ---
 
-## 3. System Architecture (3-4 pages)
+## 3. Framework Architecture (3-4 pages)
 
-### 3.1 Overview
-- Three-layer architecture: Orchestrator → Workers → Channels
-- CEO metaphor: Central coordinator that "sees everything"
+### 3.1 Three-Layer Architecture
+- Orchestrator Layer: Monitor, Blocker Detector, Channel Selector
+- Worker Layer: AI Workers, Human Workers
+- Channel Layer: Voice, SMS, Email, Dashboard, Slack
 
-### 3.2 CEO Orchestrator Agent
-- **Monitoring**: Continuously checks task status across all workers
-- **Blocker Detection**: Identifies stalled tasks, missed deadlines, repeated failures
-- **Channel Selection**: Chooses optimal communication method based on urgency, preference, availability
-- **Intervention**: Proactively reaches out before delays compound
-- **Handoff Management**: Ensures clean transitions between workers
+### 3.2 Component Roles
+- Table of components with roles and examples
 
-### 3.3 Worker Types
-#### 3.3.1 AI Workers
-- Specialized agents for specific tasks (coding, research, data entry)
-- Built on Claude Agent SDK
-- Report status to task tracker
+### 3.3 Data Flow
+- Step-by-step typical interaction
 
-#### 3.3.2 Human Workers
-- Employees with assigned tasks
-- Receive instructions via preferred channel
-- Report completion via task tracker or message
+### 3.4 Blocker Detection Logic
+- Python implementation
 
-### 3.4 Communication Channels
-| Channel | Use Case | Latency | Richness |
-|---------|----------|---------|----------|
-| Voice (VAPI) | Urgent, complex | Real-time | High |
-| SMS | Quick updates | Fast | Low |
-| Email | Detailed instructions | Slow | High |
-| Slack | Team coordination | Fast | Medium |
-| Linear/JIRA | Task tracking | N/A | Structured |
-
-### 3.5 Task Tracker Integration
-- Linear MCP for real-time issue management
-- JIRA integration for enterprise
-- Custom database for lightweight deployments
-- **Key design**: Task tracker is source of truth for all workers
-
-### 3.6 Security Model
-- Command allowlisting (inherited from Linear Agent Harness)
-- Channel-specific authentication
-- Human-in-loop approval for high-stakes actions
+### 3.5 Channel Selection Logic
+- Python implementation with fallback
 
 ---
 
-## 4. Domain Adapters (2-3 pages)
+## 4. Design Patterns (4-5 pages)
 
-### 4.1 Adapter Architecture
-- Domain-specific prompts
-- Custom blocker detection rules
-- Channel preferences by role
-- Integration hooks for external systems
+### 4.1 Session State Externalization
+- Problem/Solution/Implementation pattern
+- Generic SQL schema with JSONB context
+- Tradeoffs
 
-### 4.2 Insurance Domain Adapter
-**Based on production system**
+### 4.2 Multi-Channel Communication Hub
+- Channel routing based on context
+- Fallback logic
+- Voice error handling (always return 200)
 
-#### 4.2.1 Workflow
-1. Customer calls AI assistant (Michelle)
-2. AI collects basic information via voice
-3. AI sends SMS with application link
-4. AI guides customer through form, highlighting fields
-5. Human agent monitors dashboard, handles exceptions
-6. CEO orchestrator detects if customer is stuck, intervenes
+### 4.3 Activity Monitoring with Triggers
+- ActivityMonitor class
+- YAML-configurable trigger rules
+- Inactivity, errors, stalls, abandonment
 
-#### 4.2.2 Integration Points
-- OOPS API for forms and SMS
-- CLAI API for conversation management
-- Slack for human agent notifications
-- Dashboard for real-time monitoring
-
-#### 4.2.3 Results
-- [X] sessions completed
-- [Y]% completion rate
-- [Z] average time to completion
-- Compare to baseline (pure human)
-
-### 4.3 Coding Domain Adapter
-**Drop-in enhancement for Linear Agent Harness**
-
-#### 4.3.1 Additions
-- Human code reviewer as worker
-- Pull request notifications via Slack
-- Blocker escalation when tests fail repeatedly
-
-### 4.4 Personal Development Adapter (Conceptual)
-- Goal tracking with AI accountability coach
-- Motivation blocker detection
-- Multi-modal nudges based on user preference
+### 4.4 Human Escalation Pathways
+- EscalationManager with full context transfer
+- Dashboard integration
+- "Human should know more than the user" principle
 
 ---
 
-## 5. Implementation (2-3 pages)
+## 5. Domain Adapters (2-3 pages)
 
-### 5.1 Technology Stack
-| Component | Technology |
-|-----------|------------|
-| Orchestrator | Python + Claude Agent SDK |
-| Task Tracker | Linear MCP |
-| Voice | VAPI + ElevenLabs + Deepgram |
-| Backend | Node.js/Express |
-| Database | PostgreSQL |
+### 5.1 Adapter Architecture
+- DomainAdapter base class
 
-### 5.2 Claude Agent SDK Integration
-- Message handling
-- Tool definitions
-- Session management
-- Error recovery
+### 5.2 Example: Financial Services
+- Form completion, compliance checks
 
-### 5.3 VAPI Voice Integration
-- Assistant configuration
-- Webhook handling
-- Tool calls (getScreenState, highlightField)
-- Speech configuration (anti-interruption, banned phrases)
+### 5.3 Example: Software Development
+- Extends Linear Agent Harness with human reviewers
 
-### 5.4 Blocker Detection Algorithm
-```python
-def detect_blocker(task):
-    # Time-based detection
-    if task.time_in_status > threshold_by_type[task.type]:
-        return Blocker(type="stalled", severity="medium")
+### 5.4 Example: Customer Support
+- Sentiment detection, topic classification
 
-    # Failure-based detection
-    if task.consecutive_failures > 3:
-        return Blocker(type="repeated_failure", severity="high")
-
-    # Dependency-based detection
-    if task.blocked_by and task.blocked_by.status != "done":
-        return Blocker(type="dependency", severity="low")
-
-    return None
-```
-
-### 5.5 Channel Selection Logic
-```python
-def select_channel(blocker, worker):
-    if blocker.severity == "high" and worker.is_available:
-        return "voice"  # Immediate human-like intervention
-    if blocker.type == "clarification_needed":
-        return worker.preferred_channel  # Respect preference
-    if blocker.severity == "low":
-        return "task_tracker"  # Don't interrupt
-    return "sms"  # Default for medium severity
-```
+### 5.5 Writing Your Own Adapter
 
 ---
 
-## 6. Evaluation (3-4 pages)
+## 6. Implementation (2 pages)
 
-### 6.1 Research Questions
-- **RQ1**: Does hybrid orchestration improve task completion vs. pure AI?
-- **RQ2**: Does proactive blocker resolution reduce time-to-completion?
-- **RQ3**: Does omnichannel communication improve user satisfaction?
+### 6.1 Reference Implementation
+- GitHub repo overview, 97 tests
 
-### 6.2 Case Study: Production Insurance Application
+### 6.2 Technology Stack
 
-#### 6.2.1 Setup
-- Production deployment since [date]
-- [N] total sessions
-- [X] human agents + [Y] AI assistants
+### 6.3 Getting Started
+- Quick start code example
 
-#### 6.2.2 Metrics
-| Metric | Pure Human | Pure AI | Hybrid |
-|--------|------------|---------|--------|
-| Completion Rate | X% | Y% | Z% |
-| Avg Time | X min | Y min | Z min |
-| Customer Satisfaction | X/5 | Y/5 | Z/5 |
-| Error Rate | X% | Y% | Z% |
-
-#### 6.2.3 Qualitative Findings
-- Voice interaction builds trust
-- Proactive intervention prevents abandonment
-- Human escalation handles edge cases gracefully
-
-### 6.3 Comparison to Linear Agent Harness
-
-#### 6.3.1 Coding Task Benchmark
-- Same 50-feature app specification
-- Linear Agent Harness: [X] hours, [Y]% completion
-- Hybrid Orchestrator: [A] hours, [B]% completion
-
-#### 6.3.2 Key Differences
-- Human reviewer caught [N] bugs AI missed
-- Slack notifications enabled faster blockers resolution
-- Voice escalation resolved [M] stuck situations
-
-### 6.4 Ablation Study
-- Without CEO orchestrator: [X]% slower
-- Without voice channel: [Y]% lower satisfaction
-- Without human workers: [Z]% lower completion
+### 6.4 Security Considerations
 
 ---
 
-## 7. Limitations & Future Work (1-2 pages)
+## 7. Limitations (1-2 pages)
 
-### 7.1 Current Limitations
-- **Cost**: Frontier models (Claude Opus) are expensive
-- **Latency**: Voice calls add delay vs. pure text
-- **Scale**: Single orchestrator limits concurrent tasks
-- **Domain coverage**: Only insurance fully validated
+### 7.1 Evaluation Limitations
+- No controlled experiments
+- Framework is new
 
-### 7.2 Future Work
-- **Cost optimization**: Smaller models for routine tasks, frontier for complex
-- **Distributed orchestration**: Multiple CEO agents for scale
-- **Additional domains**: Healthcare, legal, finance
-- **Learning from interventions**: Improve blocker detection over time
+### 7.2 Technical Limitations
+- Voice latency, model costs, brittleness
+
+### 7.3 Generalization Limitations
+- Untested at scale across domains
 
 ---
 
 ## 8. Conclusion (0.5-1 page)
 
-### 8.1 Contributions Summary
-1. CEO orchestrator architecture for hybrid teams
-2. Omnichannel communication framework
-3. Domain adapter pattern
-4. Production validation in insurance
+### 8.1 Summary
+- Three layers, four patterns, domain adapters
 
-### 8.2 Impact
-- Enables enterprises to deploy hybrid AI/human teams
-- Provides blueprint for domain-specific adaptation
-- Open-source core enables community extension
-
-### 8.3 Availability
+### 8.2 Availability
 - GitHub: github.com/pavelsukhachev/hybrid-orchestrator
-- Paper: arXiv:2402.XXXXX
-- Demo: [link to video]
+- Benchmark: huggingface.co/datasets/pashas/insurance-ai-reliability-benchmark
 
 ---
 
 ## References
 
-Key citations to include:
-1. Anthropic (2025). "Effective Harnesses for Long-Running Agents"
-2. Cole Medin (2025). Linear Coding Agent Harness. GitHub.
-3. [Human-AI collaboration research]
-4. [Multi-agent framework papers]
-5. [Voice AI platform documentation]
+1. Anthropic (2025). Effective Harnesses for Long-Running Agents
+2. Medin, C. (2025). Linear Coding Agent Harness
+3. Dellermann et al. (2019). Hybrid Intelligence
+4. Wu et al. (2023). AutoGen
+5. VAPI (2025). Enterprise Voice AI Platform
+6. LangGraph (2024)
+7. Sukhachev, P. (2026). Insurance AI Reliability Benchmark
 
 ---
 
 ## Appendix
 
-### A. Full Production Architecture Diagram
-### B. Complete Tool Definitions
-### C. Prompt Templates by Domain
-### D. Blocker Detection Rules Table
+### A. Full Session Schema
+### B. Trigger Rule Configuration
+### C. Channel Interface
