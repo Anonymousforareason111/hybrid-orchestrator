@@ -1,0 +1,71 @@
+# Channel Configuration for Hybrid Human-AI Orchestrator
+#
+# Configure communication channels for the orchestrator.
+# Environment variables can be used with ${VAR_NAME:-default} syntax.
+
+channels:
+  # Console channel - always available, useful for development
+  console:
+    enabled: true
+    config: {}
+
+  # Email channel - requires email-agent microservice running
+  email:
+    enabled: true
+    config:
+      # URL of the email-agent microservice
+      base_url: ${EMAIL_AGENT_URL:-http://localhost:3000}
+
+      # Shared secret for service-to-service authentication
+      # Generate with: openssl rand -hex 32
+      api_key: ${EMAIL_AGENT_API_KEY}
+
+      # HTTP request timeout in seconds
+      timeout: 30
+
+      # Retry configuration
+      max_retries: 3
+      retry_delay: 1.0
+
+  # Webhook channel - for external integrations
+  webhook:
+    enabled: false
+    config:
+      # Webhook endpoint URL
+      url: ${WEBHOOK_URL}
+
+      # Optional authentication header
+      auth_header: ${WEBHOOK_AUTH_HEADER}
+
+      # HTTP request timeout
+      timeout: 10
+
+# Email listener configuration (WebSocket connection to email-agent)
+email_listener:
+  enabled: true
+  config:
+    # WebSocket URL for real-time email events
+    ws_url: ${EMAIL_AGENT_WS_URL:-ws://localhost:3000/ws}
+
+    # Same API key as email channel
+    api_key: ${EMAIL_AGENT_API_KEY}
+
+    # Reconnection settings
+    reconnect_delay: 5.0
+    max_reconnect_attempts: 10
+
+# Channel routing rules
+routing:
+  # Default channel for messages without explicit channel type
+  default_channel: console
+
+  # Urgency-based routing
+  urgency_routing:
+    low: [email, console]
+    normal: [email, console]
+    high: [webhook, email, console]
+    critical: [webhook, email, console]
+
+  # Fallback behavior when primary channel fails
+  fallback_enabled: true
+  fallback_channels: [console]

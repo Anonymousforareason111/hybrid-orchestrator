@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Hybrid Human-AI Orchestration"
+abstract: "Design patterns for coordinating human workers and AI agents in enterprise workflows, with a working Python implementation."
+authors:
+  - family-names: "Sukhachev"
+    given-names: "Pavel"
+    email: "pavel@electromania.llc"
+    affiliation: "Electromania LLC"
+    orcid: "https://orcid.org/0009-0006-4546-9963"
+repository-code: "https://github.com/pavelsukhachev/hybrid-orchestrator"
+url: "https://github.com/pavelsukhachev/hybrid-orchestrator"
+license: Apache-2.0
+version: "0.1.0"
+date-released: "2026-02-09"
+keywords:
+  - multi-agent-systems
+  - human-ai-collaboration
+  - voice-ai
+  - enterprise-automation
+  - design-patterns
+  - orchestration
+  - financial-services
+  - insurance-technology

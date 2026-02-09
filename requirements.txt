@@ -1,0 +1,22 @@
+# Hybrid Human-AI Orchestration Framework
+
+# Core dependencies (none required for basic functionality)
+
+# Optional: Anthropic API for Claude agent
+anthropic>=0.40.0
+
+# Optional: async HTTP client for webhook and email channels
+aiohttp>=3.9.0
+
+# Optional: WebSocket client for email-agent listener
+websockets>=12.0
+
+# Optional: YAML configuration parsing
+pyyaml>=6.0
+
+# Development and testing
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+
+# Type checking (optional)
+# mypy>=1.0.0
