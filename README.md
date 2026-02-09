@@ -15,7 +15,7 @@ A **reference implementation** of design patterns for hybrid human-AI systems:
 3. **Activity Monitoring with Triggers** - Detect user behavior patterns and trigger interventions
 4. **Human Escalation Pathways** - Enable smooth handoff from AI to human agents
 
-These patterns are extracted from [Inshurik](https://inshurik.net), a production voice AI system.
+These patterns are extracted from a production voice AI system for insurance applications.
 
 ## What This Is NOT
 

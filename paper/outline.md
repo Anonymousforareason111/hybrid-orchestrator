@@ -15,9 +15,9 @@ Alternative titles:
 
 **Contribution**: We present a general-purpose orchestration framework for hybrid human-AI teams. A central "CEO agent" monitors progress, detects blockers, and intervenes proactively via optimal communication channels (voice, SMS, email, Slack).
 
-**Evaluation**: We demonstrate the framework through Inshurik, a production insurance application system where AI guides customers through forms via voice while human agents handle exceptions. Results show [X]% faster completion and [Y]% higher satisfaction vs. pure-human baseline.
+**Evaluation**: We demonstrate the framework through a production insurance application system where AI guides customers through forms via voice while human agents handle exceptions. Results show [X]% faster completion and [Y]% higher satisfaction vs. pure-human baseline.
 
-**Availability**: Core framework open-sourced at github.com/electromania/hybrid-orchestrator
+**Availability**: Core framework open-sourced at github.com/pavelsukhachev/hybrid-orchestrator
 
 ---
 
@@ -49,7 +49,7 @@ Alternative titles:
 2. **Omnichannel Communication**: Voice (VAPI), SMS, email, Slack, task trackers
 3. **Hybrid Team Coordination**: Unified protocol for humans and AI agents
 4. **Domain Adapters**: Pluggable modules for insurance, coding, coaching
-5. **Production Validation**: Inshurik case study with real users
+5. **Production Validation**: Case study with real users
 
 ---
 
@@ -134,7 +134,7 @@ Alternative titles:
 - Integration hooks for external systems
 
 ### 4.2 Insurance Domain Adapter
-**Based on Inshurik production system**
+**Based on production system**
 
 #### 4.2.1 Workflow
 1. Customer calls AI assistant (Michelle)
@@ -233,7 +233,7 @@ def select_channel(blocker, worker):
 - **RQ2**: Does proactive blocker resolution reduce time-to-completion?
 - **RQ3**: Does omnichannel communication improve user satisfaction?
 
-### 6.2 Case Study: Inshurik Insurance Application
+### 6.2 Case Study: Production Insurance Application
 
 #### 6.2.1 Setup
 - Production deployment since [date]
@@ -302,7 +302,7 @@ def select_channel(blocker, worker):
 - Open-source core enables community extension
 
 ### 8.3 Availability
-- GitHub: github.com/electromania/hybrid-orchestrator
+- GitHub: github.com/pavelsukhachev/hybrid-orchestrator
 - Paper: arXiv:2402.XXXXX
 - Demo: [link to video]
 
@@ -321,7 +321,7 @@ Key citations to include:
 
 ## Appendix
 
-### A. Full Inshurik Architecture Diagram
+### A. Full Production Architecture Diagram
 ### B. Complete Tool Definitions
 ### C. Prompt Templates by Domain
 ### D. Blocker Detection Rules Table

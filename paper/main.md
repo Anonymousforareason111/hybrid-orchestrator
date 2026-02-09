@@ -10,7 +10,7 @@ pavel@electromania.llc
 
 Long-running AI agents face a fundamental constraint: context windows limit what they can "remember" in a single session. Recent work addresses this for software development through external task trackers. We extend this approach to general enterprise workflows.
 
-This paper presents design patterns for hybrid human-AI orchestration, derived from Inshurik—a production voice AI system for insurance applications. We describe four architectural components: (1) session state externalization for cross-session continuity, (2) multi-channel communication integrating voice, SMS, and web interfaces, (3) real-time activity monitoring with configurable intervention triggers, and (4) human escalation pathways for exception handling.
+This paper presents design patterns for hybrid human-AI orchestration, derived from a production voice AI system for insurance applications. We describe four architectural components: (1) session state externalization for cross-session continuity, (2) multi-channel communication integrating voice, SMS, and web interfaces, (3) real-time activity monitoring with configurable intervention triggers, and (4) human escalation pathways for exception handling.
 
 We do not claim these patterns are novel in isolation—monitoring, notifications, and human escalation are well-established. Our contribution is documenting how these patterns combine in a working hybrid system, with implementation details extracted from production code. We release an open-source reference implementation under Apache 2.0.
 
@@ -46,7 +46,7 @@ Our contributions:
 
 2. **Reference Implementation**. We provide an open-source framework implementing these patterns.
 
-3. **Case Study**. We describe Inshurik, a production voice AI system, as a concrete example.
+3. **Case Study**. We describe a production voice AI system as a concrete example.
 
 We explicitly acknowledge:
 - These patterns are not individually novel
@@ -56,7 +56,7 @@ We explicitly acknowledge:
 
 ### 1.4 Paper Organization
 
-Section 2 reviews related work. Section 3 presents the four design patterns. Section 4 describes the Inshurik case study. Section 5 covers implementation details. Section 6 discusses limitations. Section 7 concludes.
+Section 2 reviews related work. Section 3 presents the four design patterns. Section 4 describes the production case study. Section 5 covers implementation details. Section 6 discusses limitations. Section 7 concludes.
 
 ---
 
@@ -121,7 +121,7 @@ We present four patterns extracted from our production system.
 
 **Solution**: Store all session state in a database. The agent queries current state at session start; updates state throughout; writes summary before session ends.
 
-**Implementation** (from Inshurik):
+**Implementation** (from production system):
 
 ```sql
 -- Session table stores all state external to the agent
@@ -195,7 +195,7 @@ class ChannelHub:
         self.channels[channel].send(message, context.recipient)
 ```
 
-**Voice Channel Details** (from Inshurik):
+**Voice Channel Details** (from production system):
 
 ```typescript
 // VAPI tool call handling - always return 200
@@ -350,11 +350,11 @@ function isStalled(session: Session): boolean {
 
 ---
 
-## 4. Case Study: Inshurik
+## 4. Case Study: Production Voice AI System
 
 ### 4.1 System Overview
 
-Inshurik is a voice-guided life insurance application platform. It is a production system, deployed and handling real customer calls.
+The system is a voice-guided life insurance application platform. It is a production system, deployed and handling real customer calls.
 
 **Architecture**:
 
@@ -383,7 +383,7 @@ Customer Phone ──▶ VAPI Voice AI ──▶ Backend (Express/Node) ──�
 
 ### 4.2 Workflow
 
-1. **Customer calls** the Inshurik phone number
+1. **Customer calls** the system phone number
 2. **Michelle (voice AI)** greets them and asks for name and phone number
 3. **Backend creates session** in database, registers with form system
 4. **SMS sent** with application link
@@ -479,7 +479,7 @@ We document failures to help others avoid them:
 
 ### 5.1 Open-Source Reference
 
-We provide a reference implementation at `github.com/electromania/hybrid-orchestrator` (Apache 2.0).
+We provide a reference implementation at `github.com/pavelsukhachev/hybrid-orchestrator` (Apache 2.0).
 
 **What's Included**:
 - Session state management (PostgreSQL)
@@ -536,7 +536,7 @@ For enterprise deployment, address:
 - SOC2 recommended for enterprise customers
 - Data retention policies required
 
-We have not achieved SOC2 or HIPAA certification for Inshurik. These are areas for future work.
+We have not achieved SOC2 or HIPAA certification for this system. These are areas for future work.
 
 ---
 
@@ -547,7 +547,7 @@ We state limitations explicitly:
 ### 6.1 Evaluation Limitations
 
 - **No controlled experiment**. We cannot claim hybrid outperforms alternatives.
-- **Single case study**. Inshurik is one system in one domain.
+- **Single case study**. This is one system in one domain.
 - **No public metrics**. We haven't published detailed performance data.
 
 ### 6.2 Technical Limitations
@@ -582,15 +582,15 @@ We presented four design patterns for hybrid human-AI orchestration:
 
 These patterns are not novel individually. Our contribution is documenting their combination in a production system and providing a reference implementation.
 
-Inshurik demonstrates that voice-guided hybrid systems can work in practice. We do not claim they are superior to alternatives—that requires experimental validation we have not conducted.
+Our production system demonstrates that voice-guided hybrid systems can work in practice. We do not claim they are superior to alternatives—that requires experimental validation we have not conducted.
 
 We release our reference implementation under Apache 2.0 and invite the community to validate, extend, and improve upon these patterns.
 
-**Code**: github.com/electromania/hybrid-orchestrator
+**Code**: github.com/pavelsukhachev/hybrid-orchestrator
 
 **Acknowledgments**: We thank Cole Medin for the Linear Agent Harness, which inspired this work. We thank VAPI for voice AI infrastructure. We thank reviewers who provided feedback on earlier drafts.
 
-**Conflict of Interest**: The author is founder of Electromania LLC, which operates Inshurik commercially.
+**Conflict of Interest**: The author is founder of Electromania LLC, which operates the production system described in this paper commercially.
 
 ---
 
@@ -613,7 +613,7 @@ We release our reference implementation under Apache 2.0 and invite the communit
 ## Appendix A: Complete Session Schema
 
 ```sql
--- Full production schema from Inshurik
+-- Full production schema
 
 CREATE TYPE session_status AS ENUM ('ACTIVE', 'COMPLETED', 'CANCELLED', 'EXPIRED');
 
@@ -766,7 +766,7 @@ const VAPI_TOOLS = [
 ## Appendix C: Trigger Rule Examples
 
 ```yaml
-# Production trigger configuration (Inshurik)
+# Production trigger configuration
 
 triggers:
   # Voice prompts for inactive users
